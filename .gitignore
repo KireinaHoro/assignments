@@ -23,3 +23,6 @@ bin/
 
 # Ignore all `library.jar` in `bin` dir
 */bin/library.jar
+
+# Ignore Dolphin directory metadata
+*/.directory
