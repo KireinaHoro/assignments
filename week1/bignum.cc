@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <cstring>
 #include <iomanip>
 #include <algorithm>
 using namespace std;
@@ -21,7 +21,7 @@ class BigNum
         BigNum& operator=(const BigNum&);
 
         friend istream& operator>>(istream&, BigNum&);
-        friend ostream& operator<<(ostream&, BigNum&);
+        friend ostream& operator<<(ostream&, const BigNum&);
 
         BigNum operator+(const BigNum&) const;
         BigNum operator-(const BigNum&) const;
@@ -59,7 +59,7 @@ BigNum::BigNum(const char* s)
     if(l % DLEN)
         len++;
     index = 0;
-    for(i = l - 1; l >= 0; l -= DLEN)
+    for(i = l - 1; i >= 0; i -= DLEN)
     {
         t = 0;
         k = i - DLEN + 1;
@@ -95,7 +95,7 @@ istream& operator>>(istream& in, BigNum& b)
     int i = -1;
     in >> ch;
     int l = strlen(ch);
-    int count = 0; sum = 0;
+    int count = 0, sum = 0;
     for (i = l - 1; i >= 0;)
     {
         sum = 0;
@@ -106,6 +106,19 @@ istream& operator>>(istream& in, BigNum& b)
     }
     b.len = count++;
     return in;
+}
+
+ostream& operator<<(ostream& out, const BigNum& b)
+{
+    int i;
+    cout << b.a[b.len - 1];
+    for(i = b.len - 2; i >= 0; i --)
+    {
+        cout.width(DLEN);
+        cout.fill('0');
+        cout << b.a[i];
+    }
+    return out;
 }
 
 BigNum BigNum::operator+(const BigNum& T) const
@@ -122,8 +135,10 @@ BigNum BigNum::operator+(const BigNum& T) const
             t.a[i] -= MAXN + 1;
         }
     }
-    if(t.a[big] != 0)
+    if(t.a[big])
         t.len = big + 1;
+    else
+        t.len = big;
     return t;
 }
 
@@ -171,4 +186,122 @@ BigNum BigNum::operator-(const BigNum& T) const
     return t1;
 }
 
+BigNum BigNum::operator*(const BigNum& T) const
+{
+    BigNum ret;
+    int i, j, up;
+    int temp, temp1;
+    for(i = 0; i < len; i ++)
+    {
+        up = 0;
+        for(j = 0; j < T.len; j ++)
+        {
+            temp = a[i] * T.a[j] + ret.a[i + j] + up;
+            if(temp > MAXN)
+            {
+                temp1 = temp - temp / (MAXN + 1) * (MAXN + 1);
+                up = temp / (MAXN + 1);
+                ret.a[i + j] = temp1;
+            }
+            else
+            {
+                up = 0;
+                ret.a[i + j] = temp;
+            }
+        }
+        if(up)
+            ret.a[i + j] = up;
+    }
+    ret.len = i + j;
+    while(ret.a[ret.len - 1] == 0 && ret.len > 1)
+        ret.len--;
+    return ret;
+}
+
+BigNum BigNum::operator/(const int& b) const
+{
+    BigNum ret;
+    int i, down = 0;
+    for(i = len - 1; i >= 0; i --)
+    {
+        ret.a[i] = (a[i] + down * (MAXN + 1)) / b;
+        down = a[i] + down * (MAXN + 1) - ret.a[i] * b;
+    }
+    ret.len = len;
+    while(ret.a[ret.len - 1] == 0 && ret.len > 1)
+        ret.len--;
+    return ret;
+}
+
+int BigNum::operator%(const int& b) const
+{
+    int i, d = 0;
+    for(i = len - 1; i >= 0; i --)
+        d = (d * (MAXN + 1) + a[i]) % b;
+    return d;
+}
+
+BigNum BigNum::operator^(const int& n) const
+{
+    BigNum t, ret(1);
+    int i;
+    if(n < 0)
+        exit(-1);
+    if(!n)
+        return 1;
+    if(n == 1)
+        return *this;
+    return *this * *this ^ (n - 1);
+}
+
+bool BigNum::operator>(const BigNum& T) const
+{
+    int ln;
+    if(len > T.len)
+        return true;
+    else if(len == T.len)
+    {
+        ln = len - 1;
+        while(a[ln] == T.a[ln] && ln >= 0)
+            ln--;
+        if(ln >= 0 && a[ln] > T.a[ln])
+            return true;
+        else
+            return false;
+    }
+    else
+        return false;
+}
+
+bool BigNum::operator>(const int& t) const
+{
+    BigNum b(t);
+    return *this > b;
+}
+
+void BigNum::print()
+{
+    int i;
+    cout << a[len - 1];
+    for(i = len - 2; i >= 0; i --)
+    {
+        cout.width(DLEN);
+        cout.fill('0');
+        cout << a[i];
+    }
+    cout << endl;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    while(n--)
+    {
+        BigNum a, b, c;
+        cin >> a >> b;
+        cout << (a + b) << endl;
+    }
+    return 0;
+}
 
