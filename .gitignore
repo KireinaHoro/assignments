@@ -13,6 +13,9 @@
 *.class
 *.sm
 
+# Ignore vim swap files
+.*.swp
+
 # Ignore `bin` dir
 bin/
 # or
