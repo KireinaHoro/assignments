@@ -27,5 +27,6 @@ int main()
     bubble_sort(num, count);
     for(i=0; i<count; i++)
         printf("%d\n", num[i]);
+    free(num);
     return 0;
 }

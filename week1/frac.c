@@ -33,5 +33,6 @@ int main()
         printf("%d", sum/g);
     else
         printf("%d/%d", sum/g, l/g);
+    free(input);
     return 0;
 }
