@@ -29,7 +29,7 @@ int main()
         for(auto it = points.begin(), end = points.end(); it != end; it ++)
         {
             auto n = next(it);
-            if(it == end) n = points.begin();
+            if(n == end) n = points.begin();
             point segment = *n - *it;
 //            cout << "checking: (" << get<0>(segment) << ',' << get<1>(segment) << ')' << endl;
             double product = 1;

@@ -33,7 +33,7 @@ int main()
         {
             vector<point>::const_iterator n = it;
             advance(n, 1);
-            if(it == end) n = points.begin();
+            if(n == end) n = points.begin();
             point segment = *n - *it;
             cout << "checking: (" << segment.first << ',' << segment.second << ')' << endl;
             double product = 1;
