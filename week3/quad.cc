@@ -21,11 +21,7 @@ int main()
     int a, b, c, d, e, f, g, h;
     while(cin >> a >> b >> c >> d >> e >> f >> g >> h)
     {
-        vector<point> points;
-        points.push_back(make_pair(a, b));
-        points.push_back(make_pair(c, d));
-        points.push_back(make_pair(e, f));
-        points.push_back(make_pair(g, h));
+        vector<point> points{ make_pair(a,b), make_pair(c, d), make_pair(e, f), make_pair(g, h) };
         for(auto it = points.begin(), end = points.end(); it != end; it ++)
         {
             auto n = next(it);
