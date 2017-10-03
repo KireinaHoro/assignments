@@ -1,7 +1,5 @@
 #include <iostream>
-#include <deque>
-#include <numeric>
-#include <iterator>
+#include <vector>
 #include <limits>
 #include <utility>
 
@@ -11,7 +9,7 @@ int main()
 {
     int n, sum_s = 0;
     cin >> n;
-    deque<int> x(n), s(n);
+    vector<int> x(n), s(n);
     for(int i = 0; i < n; i ++)
     {
         cin >> x[i] >> s[i];
@@ -21,19 +19,14 @@ int main()
     for(int k = 0; k < n; k ++)
     {
         pair<int, int> cost(0, k);
+        int t = 0;
         for(int i = 1; i < n; i ++)
         {
-            int t = accumulate(s.begin(), s.begin() + i, 0);
-//            cout << "t: " << t << endl;
-            cost.first += x[i] * min(t, sum_s - t);
+            t += s[((i - 1) + k) % n];
+            cost.first += x[(i + k) % n] * min(t, sum_s - t);
         }
         if(cost.first < ans.first)
             ans = cost;
-        
-        x.push_back(x.front());
-        x.pop_front();
-        s.push_back(s.front());
-        s.pop_front();
     }
     cout << ans.second << ',' << ans.first << endl;           
     return 0;
