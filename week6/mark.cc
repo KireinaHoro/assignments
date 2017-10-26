@@ -13,7 +13,7 @@ class Student
 
     public:
         Student() { id = 0; score = 0; }
-        Student(int _id, int _score_math, int _score_chinese) : id(_id) { score = _score_math + _score_math; }
+        Student(int _id, int _score_math, int _score_chinese) : id(_id) { score = _score_math + _score_chinese; }
 
         friend istream& operator>>(istream&, Student&);
         friend ostream& operator<<(ostream&, const Student&);
