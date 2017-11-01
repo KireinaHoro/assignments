@@ -51,6 +51,11 @@ int main()
         return 0;
     }
     stable_sort(ans.begin(), ans.end(), cmp);
+    if(!ans.size())
+    {
+        cout << "0,0" << endl;
+        return 0;
+    }
     for(vector<pair<int, int> >::const_iterator it = ans.begin(); it != ans.end(); it ++)
         cout << it->first + 1 << ',' << it->second + 1 << endl;
     return 0;
