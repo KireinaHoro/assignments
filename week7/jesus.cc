@@ -59,7 +59,7 @@ int main()
     {
         int y, m, d;
         cin >> y >> m >> d;
-        cout << calc_days(y, m, d) << endl;
+        //cout << calc_days(y, m, d) << endl;
         cout << days[calc_days(y, m, d) % 7] << endl;
     }
     return 0;
