@@ -1,0 +1,7 @@
+/usr/lib/gcc/i386-redhat-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_iterator_base_types.h: In instantiation of ‘std::iterator_traits<Point>’:
+/main.cxx:38:   instantiated from here
+/usr/lib/gcc/i386-redhat-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_iterator_base_types.h:129: error: no type named ‘iterator_category’ in ‘struct Point’
+/usr/lib/gcc/i386-redhat-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_iterator_base_types.h:130: error: no type named ‘value_type’ in ‘struct Point’
+/usr/lib/gcc/i386-redhat-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_iterator_base_types.h:131: error: no type named ‘difference_type’ in ‘struct Point’
+/usr/lib/gcc/i386-redhat-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_iterator_base_types.h:132: error: no type named ‘pointer’ in ‘struct Point’
+/usr/lib/gcc/i386-redhat-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_iterator_base_types.h:133: error: no type named ‘reference’ in ‘struct Point’
